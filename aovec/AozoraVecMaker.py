@@ -4,7 +4,7 @@ import sys
 from typing import Any, List, Optional
 
 import MeCab
-import word2vec
+from gensim.models import word2vec
 
 
 class AozoraVecMaker():
