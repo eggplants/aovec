@@ -35,12 +35,12 @@ def make_argparser() -> argparse.ArgumentParser:
     subparsers = parser.add_subparsers()
 
     parser_clone = subparsers.add_parser(
-        'clone', help='clone aozorabunko/aozorabunko (>20GB)',
+        'clone', aliases=['c'], help='clone aozorabunko/aozorabunko (>20GB)',
         formatter_class=argparse.ArgumentDefaultsHelpFormatter,)
     parser_clone.set_defaults(handler=command_clone)
 
     parser_parse = subparsers.add_parser(
-        'parse', help='parse html files and write to results',
+        'parse', aliases=['p'], help='parse html files and write to results',
         formatter_class=argparse.ArgumentDefaultsHelpFormatter,)
     parser_parse.add_argument(
         '-d', '--savedir', default='novels',
@@ -48,7 +48,7 @@ def make_argparser() -> argparse.ArgumentParser:
     parser_parse.set_defaults(handler=command_parse)
 
     parser_mkvec = subparsers.add_parser(
-        'mkvec', help='make word2vec and write to *.model',
+        'mkvec', aliases=['m'], help='make word2vec and write to *.model',
         formatter_class=argparse.ArgumentDefaultsHelpFormatter,)
     parser_mkvec.add_argument(
         '-d', '--parsedir', default='novels',

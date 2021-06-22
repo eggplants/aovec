@@ -1,6 +1,6 @@
 # aovec
 
-[![PyPI version](https://badge.fury.io/py/aovec.svg)](https://badge.fury.io/py/aovec)
+[![Release Package](https://github.com/eggplants/aovec/actions/workflows/release.yml/badge.svg)](https://github.com/eggplants/aovec/actions/workflows/release.yml) [![PyPI version](https://badge.fury.io/py/aovec.svg)](https://badge.fury.io/py/aovec)
 
 - Make Word2Vec from [aozorabunko/aozorabunko](https://github.com/aozorabunko/aozorabunko)
 - This code is inspired by [sheepover96/aozora_analyzer](https://github.com/sheepover96/aozora_analyzer):
@@ -30,19 +30,19 @@ $ aovec mkvec
 
 ```bash
 $ aovec -h
-usage: aovec [-h] [-V] {clone,parse,mkvec} ...
+usage: aovec [-h] [-V] {clone,c,parse,p,mkvec,m} ...
 
 Make Word2Vec from aozorabunko/aozorabunko
 
 positional arguments:
-  {clone,parse,mkvec}
-    clone              clone aozorabunko/aozorabunko (>20GB)
-    parse              parse html files and write to results
-    mkvec              make word2vec and write to *.model
+  {clone,c,parse,p,mkvec,m}
+    clone (c)           clone aozorabunko/aozorabunko (>20GB)
+    parse (p)           parse html files and write to results
+    mkvec (m)           make word2vec and write to *.model
 
 optional arguments:
-  -h, --help           show this help message and exit
-  -V, --version        show program's version number and exit
+  -h, --help            show this help message and exit
+  -V, --version         show program's version number and exit
 ```
 
 ```bash
