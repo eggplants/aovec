@@ -28,7 +28,7 @@ class AozoraCloner():
         if not which('git'):
             raise GitIsNotInstalled
         else:
-            p = subprocess.Popen('git clone ' + cls.url, shell=True)
+            p = subprocess.Popen('git clone --depth 1 ' + cls.url, shell=True)
             p.wait()
             return p.poll()
 
