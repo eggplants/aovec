@@ -4,7 +4,7 @@ import sys
 from typing import Any, List, Optional
 
 import MeCab
-from gensim.models import word2vec
+from gensim.models import Word2Vec  # type: ignore
 
 
 class AozoraVecMaker():
@@ -45,7 +45,7 @@ class AozoraVecMaker():
                                           for line in novel_text_lines]
             all_novel_lines.extend(tokenized_novel_text_lines)
 
-        model = word2vec.Word2Vec(all_novel_lines, iter=100)  # type: ignore
+        model = Word2Vec(all_novel_lines)
         model.save(os.path.join(self.__pwd__, save_modelname))
 
     def tokenizer(self, words: str,
