@@ -24,7 +24,9 @@ class AozoraVecMaker():
         self.novel_dir = os.path.join(self.__pwd__, novel_dir)
         if not os.path.exists(self.novel_dir):
             raise FileExistsError(self.novel_dir)
-        self.__tagger = cls.__make_tagger()
+        sys.stdout = sys.stderr = open(os.devnull, 'w')
+        self.__tagger = self.__make_tagger()
+        sys.stdout, sys.stderr = sys.__stdout__, sys.__stderr__
 
     def make_model(self, save_modelname: str = 'aozora_model.model') -> None:
         def t(line: str) -> List[Any]:
@@ -79,9 +81,9 @@ class AozoraVecMaker():
     @staticmethod
     def __make_tagger() -> MeCab.Tagger:
         try:
-            tagger = MeCab.Tagger('-Ochasen')
+            tagger = MeCab.Tagger('')
         except RuntimeError:
-            tagger = MeCab.Tagger('-r/etc/mecabrc -Ochasen')
+            tagger = MeCab.Tagger('-r/etc/mecabrc')
 
         return tagger
 
