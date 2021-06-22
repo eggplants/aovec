@@ -10,6 +10,8 @@
 
 - Git
 - MeCab
+  - MeCab Checker: [src/check_mecab.py](https://github.com/eggplants/aovec/blob/master/src/check_mecab.py)
+
 
 ## How to use
 
