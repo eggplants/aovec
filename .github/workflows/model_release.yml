@@ -23,10 +23,16 @@ jobs:
           pip install aovec
       - name: Check MeCab
         run: |
-          python src/check_mecab.py
-      - name: Run clone
+          python src/check_mecab.py 2>/dev/null
+      - name: Clone
         run: |
-          aovec clone && aovec parse && aovec mkvec
+          aovec clone
+      - name: Parse
+        run: |
+          aovec parse
+      - name: Make vecmodel
+        run: |
+          aovec mkvec
       - name: Get date
         run: |
           echo "DATE=$(date +%y%m%d)" >> $GITHUB_ENV
