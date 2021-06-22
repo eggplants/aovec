@@ -19,7 +19,7 @@
 # Install from pypi
 $ pip install aovec
 # Clone aozorabunko/aozorabunko (>20GB)
-$ aovec c
+$ aovec clone
 # Parse html files and write to results to novels/
 $ aovec parse
 # Make word2vec and write to aozora_model.model
