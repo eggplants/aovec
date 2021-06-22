@@ -26,7 +26,7 @@ def make_argparser() -> argparse.ArgumentParser:
 
     parser = argparse.ArgumentParser(
         prog='aovec',
-        formatter_class=argparse.RawDescriptionHelpFormatter,
+        formatter_class=argparse.ArgumentDefaultsHelpFormatter,
         description='Make Word2Vec from aozorabunko/aozorabunko')
 
     parser.add_argument('-V', '--version', action='version',
@@ -34,18 +34,24 @@ def make_argparser() -> argparse.ArgumentParser:
 
     subparsers = parser.add_subparsers()
 
-    parser_clone = subparsers.add_parser('clone', help='see `clone -h`')
+    parser_clone = subparsers.add_parser(
+        'clone', help='clone aozorabunko/aozorabunko (>20GB)',
+        formatter_class=argparse.ArgumentDefaultsHelpFormatter,)
     parser_clone.set_defaults(handler=command_clone)
 
-    parser_parse = subparsers.add_parser('parse', help='see `parse -h`')
+    parser_parse = subparsers.add_parser(
+        'parse', help='parse html files and write to results',
+        formatter_class=argparse.ArgumentDefaultsHelpFormatter,)
     parser_parse.add_argument(
-        '-r', '--savedir', default='novels',
+        '-d', '--savedir', default='novels',
         metavar='DIR', help='directory name of saving results')
     parser_parse.set_defaults(handler=command_parse)
 
-    parser_mkvec = subparsers.add_parser('mkvec', help='see `parse -h`')
+    parser_mkvec = subparsers.add_parser(
+        'mkvec', help='make word2vec and write to *.model',
+        formatter_class=argparse.ArgumentDefaultsHelpFormatter,)
     parser_mkvec.add_argument(
-        '-r', '--parsedir', default='novels',
+        '-d', '--parsedir', default='novels',
         metavar='DIR', help='directory name of saved parsing results ')
     parser_mkvec.add_argument(
         '-o', '--model', default='aozora_model.model',
