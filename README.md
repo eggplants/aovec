@@ -6,13 +6,19 @@
 - This code is inspired by [sheepover96/aozora_analyzer](https://github.com/sheepover96/aozora_analyzer):
   - <https://serenard.hatenablog.com/entry/2019/04/28/170322>
 
+## Requirements
+
+- Git
+- MeCab
+
 ## How to use
 
 ```bash
+$ pip install aovec
 # clone aozorabunko/aozorabunko (>20GB)
-$ python AozoraCloner.py
+$ aovec c
 # parse html files and write to results to novels/
-$ python AozoraParser.py
+$ aovec parse
 # make word2vec and write to aozora_model.model
-$ python AozoraVecMaker.py
+$ aovec mkvec
 ```
