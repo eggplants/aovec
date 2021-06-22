@@ -1,7 +1,7 @@
 # aovec
 
 - Make Word2Vec from [aozorabunko/aozorabunko](https://github.com/aozorabunko/aozorabunko)
-- Refactoring:
+- This code is inspired by [sheepover96/aozora_analyzer](https://github.com/sheepover96/aozora_analyzer):
   - <https://serenard.hatenablog.com/entry/2019/04/28/170322>
 
 ## How to use
