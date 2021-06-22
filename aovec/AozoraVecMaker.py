@@ -40,7 +40,7 @@ class AozoraVecMaker():
                                           for line in novel_text_lines]
             all_novel_lines.extend(tokenized_novel_text_lines)
 
-        model = word2vec.Word2Vec(all_novel_lines, iter=100)
+        model = word2vec.Word2Vec(all_novel_lines, iter=100)  # type: ignore
         model.save(save_modelname)
 
     @classmethod
@@ -67,11 +67,13 @@ class AozoraVecMaker():
         return tokenized
 
     @classmethod
-    def __is_word(cls, word: str, part: str, part_use: Optional[List[str]]) -> bool:
+    def __is_word(cls, word: str, part: str,
+                  part_use: Optional[List[str]]) -> bool:
         is_stop = word not in cls.STOPWORDS
         is_part1 = part is None or part_use is None
-        is_part2 = part in part_use and not word.encode('utf-8').isalnum()
-        return is_stop and (is_part1 or is_part2)
+        return is_stop and (is_part1 or (type(part_use) is list and
+                                         part in part_use and
+                                         not word.encode('utf-8').isalnum()))
 
     @staticmethod
     def __make_tagger() -> MeCab.Tagger:
