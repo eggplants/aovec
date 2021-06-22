@@ -24,6 +24,7 @@ class AozoraVecMaker():
         self.novel_dir = os.path.join(self.__pwd__, novel_dir)
         if not os.path.exists(self.novel_dir):
             raise FileExistsError(self.novel_dir)
+        self.__tagger = cls.__make_tagger()
 
     def make_model(self, save_modelname: str = 'aozora_model.model') -> None:
         def t(line: str) -> List[Any]:
@@ -45,13 +46,11 @@ class AozoraVecMaker():
         model = word2vec.Word2Vec(all_novel_lines, iter=100)  # type: ignore
         model.save(os.path.join(self.__pwd__, save_modelname))
 
-    @classmethod
-    def tokenizer(cls, words: str,
+    def tokenizer(self, words: str,
                   part_use: Optional[List[str]] = ['名詞', '形容詞'],
                   normalize_word: bool = True) -> List[Any]:
-        t = cls.__make_tagger()
-        t.parse('')
-        mecab_word_nodes: MeCab.Tagger = t.parseToNode(words)
+        self.__tagger.parse('')
+        mecab_word_nodes: MeCab.Tagger = self.__tagger.parseToNode(words)
         tokenized = []
         while mecab_word_nodes:
             elements = mecab_word_nodes.feature
@@ -61,7 +60,7 @@ class AozoraVecMaker():
                 word = element_list[6]
             part = element_list[0]
 
-            if cls.__is_word(word, part, part_use):
+            if self.__is_word(word, part, part_use):
                 tokenized.append(word)
 
             mecab_word_nodes = mecab_word_nodes.next
