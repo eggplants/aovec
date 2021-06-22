@@ -1,6 +1,7 @@
 import codecs
 import glob
 import os
+import sys
 from typing import List, Optional, Tuple
 
 from bs4 import BeautifulSoup as bs
@@ -24,10 +25,14 @@ class AozoraParser():
 
     def parse(self) -> None:
         cards = [self.get_novels(c) for c in self.get_cards()]
+        c_len = len(sum(cards, []))
+        idx = 0
         for novels in cards:
             for novel in novels:
                 res = self.__parse_novel(novel)
-                print(res[0:2] if res is not None else '')
+                # print(res[0:2] if res is not None else '')
+                idx += 1
+                print('{}/{}'.format(idx, c_len), end='\r', file=sys.stderr)
                 if res:
                     sd = os.path.join(self.SAVEDIR, res[0])
                     sf = os.path.join(sd, res[1])
@@ -36,7 +41,7 @@ class AozoraParser():
 
     @classmethod
     def __parse_novel(cls, novel: str) -> Optional[Tuple[str, str, str]]:
-        print(novel)
+        # print(novel)
         f = codecs.open(novel, 'r', 'shiftjis', 'ignore')
         source = bs(f.read(), 'html.parser')
         cls.__decompose(source)

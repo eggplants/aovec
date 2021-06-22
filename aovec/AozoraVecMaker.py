@@ -1,5 +1,6 @@
 import glob
 import os
+import sys
 from typing import Any, List, Optional
 
 import MeCab
@@ -24,14 +25,15 @@ class AozoraVecMaker():
         if not os.path.exists(self.novel_dir):
             raise FileExistsError(self.novel_dir)
 
-    @classmethod
-    def make_model(cls, save_modelname: str = 'aozora_model.model') -> None:
+    def make_model(self, save_modelname: str = 'aozora_model.model') -> None:
         def t(line: str) -> List[Any]:
-            return cls.tokenizer(line, part_use=None)
+            return self.tokenizer(line, part_use=None)
 
         all_novel_lines = []
-
-        for p in glob.glob(os.path.join(cls.novel_dir, '*', '*')):
+        ps = glob.glob(os.path.join(self.novel_dir, '*', '*'))
+        ps_len = len(ps)
+        for idx, p in enumerate(ps):
+            print('{}/{}'.format(idx+1, ps_len), end='\r', file=sys.stderr)
             f = open(p, 'r')
             novel_content = f.read()
             novel_text_lines = novel_content.split('\n')
@@ -41,7 +43,7 @@ class AozoraVecMaker():
             all_novel_lines.extend(tokenized_novel_text_lines)
 
         model = word2vec.Word2Vec(all_novel_lines, iter=100)  # type: ignore
-        model.save(save_modelname)
+        model.save(os.path.join(self.__pwd__, save_modelname))
 
     @classmethod
     def tokenizer(cls, words: str,
