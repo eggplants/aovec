@@ -22,22 +22,22 @@ class AozoraParser():
         if not cls.check_exist(cls.AOZORA_CARDS):
             raise FileNotFoundError(cls.AOZORA_CARDS)
 
-    @classmethod
-    def parse(cls) -> None:
-        cards = [cls.get_novels(c) for c in cls.get_cards()]
+    def parse(self) -> None:
+        cards = [self.get_novels(c) for c in self.get_cards()]
         for novels in cards:
             for novel in novels:
-                res = cls.__parse_novel(novel)
+                res = self.__parse_novel(novel)
+                print(res[0:2] if res is not None else '')
                 if res:
-                    sd = os.path.join(cls.SAVEDIR, res[0])
+                    sd = os.path.join(self.SAVEDIR, res[0])
                     sf = os.path.join(sd, res[1])
                     os.makedirs(sd, exist_ok=True)
-                    cls.__save_text(sf, res[2])
+                    self.__save_text(sf, res[2])
 
     @classmethod
     def __parse_novel(cls, novel: str) -> Optional[Tuple[str, str, str]]:
         print(novel)
-        f = codecs.open(novel, 'r', encoding='utf-8')
+        f = codecs.open(novel, 'r', 'shiftjis', 'ignore')
         source = bs(f.read(), 'html.parser')
         cls.__decompose(source)
 
@@ -45,12 +45,20 @@ class AozoraParser():
         novel_author = source.find('h2', class_='author')
         novel_content = source.find('div', class_='main_text')
         f1 = novel_author is not None
-        f2 = novel_author.string is not None
-        if f1 and f2:
-            return (novel_author.string, novel_title.string,
+        if f1 and novel_author.string is not None:
+            return (cls.__shrink(novel_author.string),
+                    novel_title.string,
                     novel_content.text)
         else:
             return None
+
+    @staticmethod
+    def __shrink(t: str, length: int = 100) -> str:
+        t = t.replace('　', '_')
+        if len(t) > 100:
+            return t[0:100] + '…'
+        else:
+            return t
 
     @staticmethod
     def __save_text(path: str, text: str) -> None:
