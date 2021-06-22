@@ -79,7 +79,7 @@ class AozoraVecMaker():
     def __make_tagger() -> MeCab.Tagger:
         try:
             tagger = MeCab.Tagger('-Ochasen')
-        except Exception:
+        except RuntimeError:
             tagger = MeCab.Tagger('-r/etc/mecabrc -Ochasen')
 
         return tagger
