@@ -4,9 +4,9 @@ import MeCab
 def make_tagger() -> MeCab.Tagger:
     tagger: MeCab.Tagger
     try:
-        tagger = MeCab.Tagger('-Ochasen')
+        tagger = MeCab.Tagger('')
     except RuntimeError:
-        tagger = MeCab.Tagger('-r/etc/mecabrc -Ochasen')
+        tagger = MeCab.Tagger('-r/etc/mecabrc')
 
     return tagger
 
