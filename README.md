@@ -26,6 +26,18 @@ $ aovec parse
 $ aovec mkvec
 ```
 
+## (Optional)Set up `mecab-ipadic-neologd` on Ubuntu
+
+```bash
+$ sudo apt install build-essential
+$ git clone https://github.com/neologd/mecab-ipadic-neologd neologd && cd $_
+$ sudo bin/install-mecab-ipadic-neologd
+$ sudo mv /usr/lib/*/mecab/dic/mecab-ipadic-neologd /var/lib/mecab/dic
+$ sudo sed -i 's_^dicdir.*_; &\'$'\ndicdir = /var/lib/mecab/dic/mecab-ipadic-neologd_' /etc/mecabrc
+```
+
+
+
 ## Help
 
 ```bash
