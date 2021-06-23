@@ -7,7 +7,7 @@
 
 - Pre-built models are available from `week*` [Releases](https://github.com/eggplants/aovec/releases).
 
-![model](https://img.shields.io/badge/dynamic/json.svg?label=Model&query=$[0].assets[0].browser_download_url&url=https://api.github.com/repos/eggplants/aovec/releases)
+[![model](https://img.shields.io/badge/dynamic/json.svg?label=Model&query=$[0].assets[0].browser_download_url&url=https://api.github.com/repos/eggplants/aovec/releases)](https://github.com/eggplants/aovec/releases)
 
 ## Requirements
 
