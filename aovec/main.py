@@ -71,16 +71,16 @@ def make_argparser() -> argparse.ArgumentParser:
         metavar='INT', help='number of word2vec epochs')
     parser_mkvec.add_argument(
         '-v', '--vector_size', default=1000, type=check_positive,
-        metavar='INT', help='imensionality of the word vectors')
+        metavar='INT', help='dimensionality of the word vectors')
     parser_mkvec.add_argument(
         '-m', '--min_count', default=5, type=check_positive,
         metavar='INT', help='ignore words total frequency lower than this')
     parser_mkvec.add_argument(
         '-w', '--window', default=5, type=check_positive,
-        metavar='INT', help='number of using words before and for learning')
+        metavar='INT', help='window size of words before and for learning')
     parser_mkvec.add_argument(
         '-p', '--workers', default=3, type=check_positive,
-        metavar='INT', help='number of worker threads')
+        metavar='INT', help='worker threads')
     parser_mkvec.add_argument(
         '-b', '--binary', action='store_true',
         help='save keyvector file as one binary')

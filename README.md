@@ -124,14 +124,14 @@ optional arguments:
                         name of word2vec model (default: aozora_model.model)
   -e INT, --epochs INT  number of word2vec epochs (default: 5)
   -v INT, --vector_size INT
-                        imensionality of the word vectors (default: 1000)
+                        dimensionality of the word vectors (default: 1000)
   -m INT, --min_count INT
                         ignore words total frequency lower than this (default:
                         5)
-  -w INT, --window INT  number of using words before and for learning
+  -w INT, --window INT  window size of words before and for learning
                         (default: 5)
   -p INT, --workers INT
-                        number of worker threads (default: 3)
+                        worker threads (default: 3)
   -b, --binary          save keyvector file as one binary (default: False)
 ```
 

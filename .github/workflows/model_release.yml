@@ -41,11 +41,11 @@ jobs:
           aovec parse
       - name: Make vecmodel
         run: |
-          aovec mkvec -o aozora_week${{ env.DATE }} -p -b
+          aovec mkvec -o aozora_week${{ env.DATE }} -b
       - name: Create release
         uses: ncipollo/release-action@v1
         with:
-          artifacts: "*.model,*.npy,*.kv*,"
+          artifacts: "*.model,*.npy,*.kv*"
           token: ${{ secrets.GITHUB_TOKEN }}
           tag: week${{ env.DATE }}
           artifactErrorsFailBuild: true
