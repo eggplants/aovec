@@ -55,7 +55,10 @@ class AozoraVecMaker():
         tokenized = []
         while nodes:
             word = nodes.surface
-            part = nodes.feature.split(',')[0]
+            pos = nodes.feature.split(',')
+            part = pos[0]
+            if len(part) >= 7:
+                word = pos[6]
 
             if self.__is_word(word, part, part_use):
                 tokenized.append(word)

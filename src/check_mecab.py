@@ -17,8 +17,9 @@ def parse(text: str) -> None:
     node = t.parseToNode(text)
     while node:
         word = node.surface
-        part = node.feature.split(',')[0]
-        print('"{}"({})'.format(word, part))
+        pos = node.feature.split(',')
+        part = pos[0]
+        print('"{}:{}"({})'.format(word, pos[6], part))
         node = node.next
 
 
