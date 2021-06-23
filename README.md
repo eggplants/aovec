@@ -33,10 +33,25 @@ $ sudo apt install build-essential
 $ git clone https://github.com/neologd/mecab-ipadic-neologd neologd && cd $_
 $ sudo bin/install-mecab-ipadic-neologd -y
 $ sudo mv /usr/lib/*/mecab/dic/mecab-ipadic-neologd /var/lib/mecab/dic
+$ sudo cp /etc/mecabrc /stc/mecabrc.bak
 $ sudo sed -i 's_^dicdir.*_; &\'$'\ndicdir = /var/lib/mecab/dic/mecab-ipadic-neologd_' /etc/mecabrc
 ```
 
+- `diff` mecabrc
 
+```diff
+--- /etc/mecabrc.bak
++++ /etc/mecabrc
+@@ -3,7 +3,8 @@
+ ;
+ ; $Id: mecabrc.in,v 1.3 2006/05/29 15:36:08 taku-ku Exp $;
+ ;
+-dicdir = /var/lib/mecab/dic/debian
++; dicdir = /var/lib/mecab/dic/debian
++dicdir = /var/lib/mecab/dic/mecab-ipadic-neologd
+ 
+ ; userdic = /home/foo/bar/user.dic
+```
 
 ## Help
 
