@@ -23,7 +23,7 @@ jobs:
           pip install aovec
       - name: Set up neologd
         run: |
-          git clone https://github.com/neologd/mecab-ipadic-neologd neologd && cd $_
+          git clone --depth 1 https://github.com/neologd/mecab-ipadic-neologd neologd && cd $_
           sudo bin/install-mecab-ipadic-neologd -y
           sudo mv /usr/lib/*/mecab/dic/mecab-ipadic-neologd /var/lib/mecab/dic
           sudo sed -i 's_^dicdir.*_; &\'$'\ndicdir = /var/lib/mecab/dic/mecab-ipadic-neologd_' /etc/mecabrc
