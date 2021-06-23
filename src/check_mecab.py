@@ -11,16 +11,17 @@ def make_tagger() -> MeCab.Tagger:
     return tagger
 
 
-def parse(text: str = "これはテストです！！！！") -> None:
+def parse(text: str) -> None:
     t = make_tagger()
     t.parse('')
     node = t.parseToNode(text)
     while node:
         word = node.surface
-        pos = node.feature.split(",")[1]
-        print('{0} , {1}'.format(word, pos))
+        part = node.feature.split(',')[0]
+        print('"{}"({})'.format(word, part))
         node = node.next
 
 
 if __name__ == '__main__':
-    parse()
+    parse("これはテストです！！！！")
+    parse("試験的にMeCabを使ってみます。果たして―――")
