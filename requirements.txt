@@ -1,4 +1,4 @@
 beautifulsoup4
-gensim==4.0.1
+gensim>=4.0.1
 mecab-python3
 python-Levenshtein

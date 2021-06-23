@@ -28,9 +28,14 @@ class AozoraVecMaker():
         self.__tagger = self.__make_tagger()
         sys.stdout, sys.stderr = sys.__stdout__, sys.__stderr__
 
-    def make_model(self, save_modelname: str = 'aozora_model.model') -> None:
+    def make_model(self, save_modelname: str = 'aozora_model.model',
+                   epochs: int = 5) -> None:
         def t(line: str) -> List[Any]:
             return self.tokenizer(line, part_use=None)
+
+        if epochs is None or epochs <= 0:
+            raise ValueError(
+                "You must specify an explicit epochs count.")
 
         all_novel_lines = []
         ps = glob.glob(os.path.join(self.novel_dir, '*', '*'))
@@ -45,7 +50,7 @@ class AozoraVecMaker():
                                           for line in novel_text_lines]
             all_novel_lines.extend(tokenized_novel_text_lines)
 
-        model = Word2Vec(all_novel_lines, epochs=100)
+        model = Word2Vec(all_novel_lines, epochs=epochs)
         model.save(os.path.join(self.__pwd__, save_modelname))
 
     def tokenizer(self, words: str,
