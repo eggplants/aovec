@@ -18,7 +18,10 @@ def command_parse(args: NS) -> None:
 
 
 def command_mkvec(args: NS) -> None:
-    AozoraVecMaker(args.parsedir).make_model(args.model, args.epochs)
+    AozoraVecMaker(args.parsedir).make_model(
+        save_modelname=args.model, epochs=args.epochs,
+        vector_size=args.vector_size, min_count=args.min_count,
+        window=args.window, workers=args.workers, binary=args.binary)
 
 
 def check_positive(v: str) -> int:
@@ -61,11 +64,26 @@ def make_argparser() -> argparse.ArgumentParser:
         '-d', '--parsedir', default='novels',
         metavar='DIR', help='directory name of saved parsing results')
     parser_mkvec.add_argument(
-        '-o', '--model', default='aozora_model.model',
+        '-o', '--model', default='aozora_model',
         metavar='NAME', help='name of word2vec model')
     parser_mkvec.add_argument(
         '-e', '--epochs', default=5, type=check_positive,
         metavar='INT', help='number of word2vec epochs')
+    parser_mkvec.add_argument(
+        '-v', '--vector_size', default=1000, type=check_positive,
+        metavar='INT', help='imensionality of the word vectors')
+    parser_mkvec.add_argument(
+        '-m', '--min_count', default=5, type=check_positive,
+        metavar='INT', help='ignore words total frequency lower than this')
+    parser_mkvec.add_argument(
+        '-w', '--window', default=5, type=check_positive,
+        metavar='INT', help='number of using words before and for learning')
+    parser_mkvec.add_argument(
+        '-p', '--workers', default=3, type=check_positive,
+        metavar='INT', help='number of worker threads')
+    parser_mkvec.add_argument(
+        '-b', '--binary', action='store_true',
+        help='save keyvector file as one binary')
 
     parser_mkvec.set_defaults(handler=command_mkvec)
 

@@ -36,7 +36,10 @@ $ aovec mkvec
 from gensim.models import Word2Vec as w
 
 model = w.load('aozora_model.model')
-
+# or
+model = w.load('aozora_model.kv')
+# or
+model = w.load('aozora_model.kv.bin', binary=True)
 ```
 
 ## (Optional)Set up `mecab-ipadic-neologd` on Ubuntu
@@ -67,7 +70,7 @@ $ sudo sed -i 's_^dicdir.*_; &\'$'\ndicdir = /var/lib/mecab/dic/mecab-ipadic-neo
 -dicdir = /var/lib/mecab/dic/debian
 +; dicdir = /var/lib/mecab/dic/debian
 +dicdir = /var/lib/mecab/dic/mecab-ipadic-neologd
- 
+
  ; userdic = /home/foo/bar/user.dic
 ```
 
@@ -109,7 +112,8 @@ optional arguments:
 
 ```bash
 $ aovec mkvec -h
-usage: aovec mkvec [-h] [-d DIR] [-o NAME] [-e INT]
+usage: aovec mkvec [-h] [-d DIR] [-o NAME] [-e INT] [-v INT] [-m INT] [-w INT]
+                   [-p INT] [-b]
 
 optional arguments:
   -h, --help            show this help message and exit
@@ -119,6 +123,16 @@ optional arguments:
   -o NAME, --model NAME
                         name of word2vec model (default: aozora_model.model)
   -e INT, --epochs INT  number of word2vec epochs (default: 5)
+  -v INT, --vector_size INT
+                        imensionality of the word vectors (default: 1000)
+  -m INT, --min_count INT
+                        ignore words total frequency lower than this (default:
+                        5)
+  -w INT, --window INT  number of using words before and for learning
+                        (default: 5)
+  -p INT, --workers INT
+                        number of worker threads (default: 3)
+  -b, --binary          save keyvector file as one binary (default: False)
 ```
 
 ## License
