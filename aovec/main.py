@@ -18,7 +18,14 @@ def command_parse(args: NS) -> None:
 
 
 def command_mkvec(args: NS) -> None:
-    AozoraVecMaker(args.parsedir).make_model(args.model)
+    AozoraVecMaker(args.parsedir).make_model(args.model, args.epochs)
+
+
+def check_positive(v: str) -> int:
+    if int(v) <= 0:
+        raise argparse.ArgumentTypeError(
+            "%s is an invalid natural number" % int(v))
+    return int(v)
 
 
 def make_argparser() -> argparse.ArgumentParser:
@@ -52,10 +59,13 @@ def make_argparser() -> argparse.ArgumentParser:
         formatter_class=argparse.ArgumentDefaultsHelpFormatter,)
     parser_mkvec.add_argument(
         '-d', '--parsedir', default='novels',
-        metavar='DIR', help='directory name of saved parsing results ')
+        metavar='DIR', help='directory name of saved parsing results')
     parser_mkvec.add_argument(
         '-o', '--model', default='aozora_model.model',
         metavar='NAME', help='name of word2vec model')
+    parser_mkvec.add_argument(
+        '-e', '--epochs', default=5, type=check_positive,
+        metavar='INT', help='number of word2vec epochs')
 
     parser_mkvec.set_defaults(handler=command_mkvec)
 
