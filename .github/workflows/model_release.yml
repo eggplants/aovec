@@ -44,11 +44,14 @@ jobs:
           echo "DATE=$(date +%y%m%d)" >> $GITHUB_ENV
       - name: Rename artifacts
         run: |
-          mv *.model aozora_${{ env.DATE }}.model
+          for i in *.npy *.model
+          do
+            echo ${i%.*}_${{ env.DATE }}.${i##*.}
+          done
       - name: Create release
         uses: ncipollo/release-action@v1
         with:
-          artifacts: "*.model"
+          artifacts: "*.model,*.npy"
           token: ${{ secrets.GITHUB_TOKEN }}
           tag: week${{ env.DATE }}
           artifactErrorsFailBuild: true
