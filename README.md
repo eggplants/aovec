@@ -28,7 +28,7 @@ $ aovec parse
 $ aovec mkvec
 ```
 
-- Use from Python
+- Use from Python (See: [official document](https://radimrehurek.com/gensim/models/word2vec.html))
 
 ```python
 from gensim.models import Word2Vec as w
@@ -48,7 +48,7 @@ $ sudo bin/install-mecab-ipadic-neologd -y
 $ sudo mv /usr/lib/*/mecab/dic/mecab-ipadic-neologd /var/lib/mecab/dic
 ```
 
-- Update `/etc/mecabrc` (See: [official document](https://radimrehurek.com/gensim/models/word2vec.html))
+- Update `/etc/mecabrc`
 
 ```bash
 $ sudo cp /etc/mecabrc /stc/mecabrc.bak
