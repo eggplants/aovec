@@ -16,11 +16,17 @@ jobs:
           python-version: 3.8
       - name: Install dependencies with apt
         run: |
-          sudo apt install swig mecab libmecab-dev mecab-ipadic-utf8 -y
+          sudo apt install swig mecab libmecab-dev mecab-ipadic-utf8 build-essential -y
       - name: Install dependencies with pip
         run: |
           python -m pip install -U pip
           pip install aovec
+      - name: Set up neologd
+        run: |
+          git clone --depth 1 https://github.com/neologd/mecab-ipadic-neologd neologd && cd $_
+          sudo bin/install-mecab-ipadic-neologd -y
+          sudo mv /usr/lib/*/mecab/dic/mecab-ipadic-neologd /var/lib/mecab/dic
+          sudo sed -i 's_^dicdir.*_; &\'$'\ndicdir = /var/lib/mecab/dic/mecab-ipadic-neologd_' /etc/mecabrc
       - name: Check MeCab
         run: |
           python src/check_mecab.py 2>/dev/null

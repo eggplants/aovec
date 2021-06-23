@@ -7,6 +7,8 @@
 
 - Pre-built models are available from `week*` [Releases](https://github.com/eggplants/aovec/releases).
 
+[![model](https://img.shields.io/badge/dynamic/json.svg?label=Model&query=$[0].assets[0].browser_download_url&url=https://api.github.com/repos/eggplants/aovec/releases)](https://github.com/eggplants/aovec/releases)
+
 ## Requirements
 
 - Git
@@ -14,6 +16,8 @@
   - MeCab Checker: [src/check_mecab.py](https://github.com/eggplants/aovec/blob/master/src/check_mecab.py)
 
 ## How to use
+
+- Make `*.model` file
 
 ```bash
 # Install from pypi
@@ -24,6 +28,47 @@ $ aovec clone
 $ aovec parse
 # Make word2vec and write to aozora_model.model
 $ aovec mkvec
+```
+
+- Use from Python (See: [official document](https://radimrehurek.com/gensim/models/word2vec.html))
+
+```python
+from gensim.models import Word2Vec as w
+
+model = w.load('aozora_model.model')
+
+```
+
+## (Optional)Set up `mecab-ipadic-neologd` on Ubuntu
+
+- Download and install
+
+```bash
+$ sudo apt install build-essential
+$ git clone --depth 1 https://github.com/neologd/mecab-ipadic-neologd neologd && cd $_
+$ sudo bin/install-mecab-ipadic-neologd -y
+$ sudo mv /usr/lib/*/mecab/dic/mecab-ipadic-neologd /var/lib/mecab/dic
+```
+
+- Update `/etc/mecabrc`
+
+```bash
+$ sudo cp /etc/mecabrc /stc/mecabrc.bak
+$ sudo sed -i 's_^dicdir.*_; &\'$'\ndicdir = /var/lib/mecab/dic/mecab-ipadic-neologd_' /etc/mecabrc
+```
+
+```diff
+--- /etc/mecabrc.bak
++++ /etc/mecabrc
+@@ -3,7 +3,8 @@
+ ;
+ ; $Id: mecabrc.in,v 1.3 2006/05/29 15:36:08 taku-ku Exp $;
+ ;
+-dicdir = /var/lib/mecab/dic/debian
++; dicdir = /var/lib/mecab/dic/debian
++dicdir = /var/lib/mecab/dic/mecab-ipadic-neologd
+ 
+ ; userdic = /home/foo/bar/user.dic
 ```
 
 ## Help
