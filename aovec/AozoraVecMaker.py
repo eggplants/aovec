@@ -45,27 +45,22 @@ class AozoraVecMaker():
                                           for line in novel_text_lines]
             all_novel_lines.extend(tokenized_novel_text_lines)
 
-        model = Word2Vec(all_novel_lines)
+        model = Word2Vec(all_novel_lines, epochs=100)
         model.save(os.path.join(self.__pwd__, save_modelname))
 
     def tokenizer(self, words: str,
-                  part_use: Optional[List[str]] = ['名詞', '形容詞'],
-                  normalize_word: bool = True) -> List[Any]:
+                  part_use: Optional[List[str]] = ['名詞', '形容詞']) -> List[Any]:
         self.__tagger.parse('')
-        mecab_word_nodes: MeCab.Tagger = self.__tagger.parseToNode(words)
+        nodes: MeCab.Tagger = self.__tagger.parseToNode(words)
         tokenized = []
-        while mecab_word_nodes:
-            elements = mecab_word_nodes.feature
-            word = mecab_word_nodes.surface
-            element_list = elements.split(',')
-            if normalize_word:
-                word = element_list[6]
-            part = element_list[0]
+        while nodes:
+            word = nodes.surface
+            part = nodes.feature.split(',')[0]
 
             if self.__is_word(word, part, part_use):
                 tokenized.append(word)
 
-            mecab_word_nodes = mecab_word_nodes.next
+            nodes = nodes.next
 
         return tokenized
 
@@ -73,10 +68,10 @@ class AozoraVecMaker():
     def __is_word(cls, word: str, part: str,
                   part_use: Optional[List[str]]) -> bool:
         is_stop = word not in cls.STOPWORDS
-        is_part1 = part is None or part_use is None
-        return is_stop and (is_part1 or (type(part_use) is list and
-                                         part in part_use and
-                                         not word.encode('utf-8').isalnum()))
+        is_part = part is None or part_use is None
+        return is_stop and (is_part or (type(part_use) is list and
+                                        part in part_use and
+                                        not word.isalnum()))
 
     @staticmethod
     def __make_tagger() -> MeCab.Tagger:
