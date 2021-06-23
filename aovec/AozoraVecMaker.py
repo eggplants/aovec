@@ -28,14 +28,12 @@ class AozoraVecMaker():
         self.__tagger = self.__make_tagger()
         sys.stdout, sys.stderr = sys.__stdout__, sys.__stderr__
 
-    def make_model(self, save_modelname: str = 'aozora_model.model',
-                   epochs: int = 5) -> None:
+    def make_model(self, save_modelname: str = 'aozora_model',
+                   epochs: int = 5, vector_size: int = 100,
+                   min_count: int = 5, window: int = 5, workers: int = 3,
+                   binary: bool = False) -> None:
         def t(line: str) -> List[Any]:
             return self.tokenizer(line, part_use=None)
-
-        if epochs is None or epochs <= 0:
-            raise ValueError(
-                "You must specify an explicit epochs count.")
 
         all_novel_lines = []
         ps = glob.glob(os.path.join(self.novel_dir, '*', '*'))
@@ -50,8 +48,14 @@ class AozoraVecMaker():
                                           for line in novel_text_lines]
             all_novel_lines.extend(tokenized_novel_text_lines)
 
-        model = Word2Vec(all_novel_lines, epochs=epochs)
-        model.save(os.path.join(self.__pwd__, save_modelname))
+        model = Word2Vec(all_novel_lines, epochs=epochs,
+                         vector_size=vector_size,
+                         min_count=min_count, window=window, workers=workers)
+        model.save(os.path.join(self.__pwd__, save_modelname + '.model'))
+
+        kv_ext = ('.kv.bin' if binary else '.kv')
+        model.wv.save_word2vec_format(os.path.join(
+            self.__pwd__, save_modelname + kv_ext), binary=binary)
 
     def tokenizer(self, words: str,
                   part_use: Optional[List[str]] = ['名詞', '形容詞']) -> List[Any]:

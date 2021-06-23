@@ -30,6 +30,9 @@ jobs:
       - name: Check MeCab
         run: |
           python src/check_mecab.py 2>/dev/null
+      - name: Get date
+        run: |
+          echo "DATE=$(date +%y%m%d)" >> $GITHUB_ENV
       - name: Clone
         run: |
           aovec clone
@@ -38,20 +41,11 @@ jobs:
           aovec parse
       - name: Make vecmodel
         run: |
-          aovec mkvec
-      - name: Get date
-        run: |
-          echo "DATE=$(date +%y%m%d)" >> $GITHUB_ENV
-      - name: Rename artifacts
-        run: |
-          for i in *.npy *.model
-          do
-            echo ${i%.*}_${{ env.DATE }}.${i##*.}
-          done
+          aovec mkvec -o aozora_week${{ env.DATE }} -p -b
       - name: Create release
         uses: ncipollo/release-action@v1
         with:
-          artifacts: "*.model,*.npy"
+          artifacts: "*.model,*.npy,*.kv*,"
           token: ${{ secrets.GITHUB_TOKEN }}
           tag: week${{ env.DATE }}
           artifactErrorsFailBuild: true
