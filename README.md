@@ -15,6 +15,8 @@
 
 ## How to use
 
+- Make `*.model` file
+
 ```bash
 # Install from pypi
 $ pip install aovec
@@ -24,6 +26,15 @@ $ aovec clone
 $ aovec parse
 # Make word2vec and write to aozora_model.model
 $ aovec mkvec
+```
+
+- Use from Python
+
+```python
+from gensim.models import Word2Vec as w
+
+model = w.load('aozora_model.model')
+
 ```
 
 ## (Optional)Set up `mecab-ipadic-neologd` on Ubuntu
@@ -37,7 +48,7 @@ $ sudo bin/install-mecab-ipadic-neologd -y
 $ sudo mv /usr/lib/*/mecab/dic/mecab-ipadic-neologd /var/lib/mecab/dic
 ```
 
-- Update `/etc/mecabrc`
+- Update `/etc/mecabrc` (See: [official document](https://radimrehurek.com/gensim/models/word2vec.html))
 
 ```bash
 $ sudo cp /etc/mecabrc /stc/mecabrc.bak
