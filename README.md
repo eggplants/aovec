@@ -33,13 +33,17 @@ $ aovec mkvec
 - Use from Python (See: [official document](https://radimrehurek.com/gensim/models/word2vec.html))
 
 ```python
-from gensim.models import Word2Vec as w
+from gensim.models import Word2Vec, KeyedVectors
 
-model = w.load('aozora_model.model')
-# or
-model = w.load('aozora_model.kv')
-# or
-model = w.load('aozora_model.kv.bin', binary=True)
+model = Word2Vec.load('aozora_model.model')
+
+# or...
+model = KeyedVectors.load_word2vec_format('aozora_model.kv',
+                                          unicode_errors='ignore')
+# or...
+model = KeyedVectors.load_word2vec_format('aozora_model.kv.bin',
+                                          binary=True,
+                                          unicode_errors='ignore')
 ```
 
 ## (Optional)Set up `mecab-ipadic-neologd` on Ubuntu
