@@ -36,10 +36,11 @@ $ aovec mkvec
 from gensim.models import Word2Vec, KeyedVectors
 
 model = Word2Vec.load('aozora_model.model')
-# or
+
+# or...
 model = KeyedVectors.load_word2vec_format('aozora_model.kv',
                                           unicode_errors='ignore')
-# or
+# or...
 model = KeyedVectors.load_word2vec_format('aozora_model.kv.bin',
                                           binary=True,
                                           unicode_errors='ignore')
