@@ -59,17 +59,12 @@ class AozoraVecMaker():
         kv_name = os.path.join(self.__pwd__, save_modelname + '.kv')
 
         if both:
-            model.save_word2vec_format(model_name + '.bin', binary=True)
-            model.save_word2vec_format(model_name)
+            model.save(model_name)
             model.wv.save_word2vec_format(kv_name + '.bin', binary=True)
             model.wv.save_word2vec_format(kv_name)
             return None
 
-        if binary:
-            model.save_word2vec_format(model_name + '.bin', binary=True)
-        else:
-            model.save_word2vec_format(model_name)
-
+        model.save(model_name)
         if binary:
             model.wv.save_word2vec_format(kv_name + '.bin', binary=True)
         else:
