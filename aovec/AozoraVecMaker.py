@@ -20,7 +20,7 @@ class AozoraVecMaker():
                  'と', 'し', 'それで', 'しかし', '',
                  *[chr(i) for i in range(12354, 12436)]]
 
-    def __init__(self, novel_dir: str = 'novel'):
+    def __init__(self, novel_dir: str = 'novel') -> None:
         self.novel_dir = os.path.join(self.__pwd__, novel_dir)
         if not os.path.exists(self.novel_dir):
             raise FileExistsError(self.novel_dir)
@@ -31,7 +31,7 @@ class AozoraVecMaker():
     def make_model(self, save_modelname: str = 'aozora_model',
                    epochs: int = 5, vector_size: int = 100,
                    min_count: int = 5, window: int = 5, workers: int = 3,
-                   binary: bool = False) -> None:
+                   binary: bool = False, both: bool = False) -> None:
         def t(line: str) -> List[Any]:
             return self.tokenizer(line, part_use=None)
 
@@ -51,11 +51,29 @@ class AozoraVecMaker():
         model = Word2Vec(all_novel_lines, epochs=epochs,
                          vector_size=vector_size,
                          min_count=min_count, window=window, workers=workers)
-        model.save(os.path.join(self.__pwd__, save_modelname + '.model'))
+        self.__save_model(model, save_modelname, binary, both)
 
-        kv_ext = ('.kv.bin' if binary else '.kv')
-        model.wv.save_word2vec_format(os.path.join(
-            self.__pwd__, save_modelname + kv_ext), binary=binary)
+    def __save_model(self, model: Word2Vec, save_modelname: str,
+                     binary: bool, both: bool) -> None:
+        model_name = os.path.join(self.__pwd__, save_modelname + '.model')
+        kv_name = os.path.join(self.__pwd__, save_modelname + '.kv')
+
+        if both:
+            model.save_word2vec_format(model_name + '.bin', binary=True)
+            model.save_word2vec_format(model_name)
+            model.wv.save_word2vec_format(kv_name + '.bin', binary=True)
+            model.wv.save_word2vec_format(kv_name)
+            return None
+
+        if binary:
+            model.save_word2vec_format(model_name + '.bin', binary=True)
+        else:
+            model.save_word2vec_format(model_name)
+
+        if binary:
+            model.wv.save_word2vec_format(kv_name + '.bin', binary=True)
+        else:
+            model.wv.save_word2vec_format(kv_name)
 
     def tokenizer(self, words: str,
                   part_use: Optional[List[str]] = ['名詞', '形容詞']) -> List[Any]:

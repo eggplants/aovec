@@ -113,7 +113,7 @@ optional arguments:
 ```bash
 $ aovec mkvec -h
 usage: aovec mkvec [-h] [-d DIR] [-o NAME] [-e INT] [-v INT] [-m INT] [-w INT]
-                   [-p INT] [-b]
+                   [-p INT] [-b] [--both]
 
 optional arguments:
   -h, --help            show this help message and exit
@@ -121,18 +121,20 @@ optional arguments:
                         directory name of saved parsing results (default:
                         novels)
   -o NAME, --model NAME
-                        name of word2vec model (default: aozora_model.model)
+                        name of word2vec model (default: aozora_model)
   -e INT, --epochs INT  number of word2vec epochs (default: 5)
   -v INT, --vector_size INT
                         dimensionality of the word vectors (default: 1000)
   -m INT, --min_count INT
                         ignore words total frequency lower than this (default:
                         5)
-  -w INT, --window INT  window size of words before and for learning
-                        (default: 5)
+  -w INT, --window INT  window size of words before and for learning (default:
+                        5)
   -p INT, --workers INT
                         worker threads (default: 3)
-  -b, --binary          save keyvector file as one binary (default: False)
+  -b, --binary          save model files as one binary (default: False)
+  --both                save model files as both row data and binary (default:
+                        False)
 ```
 
 ## License

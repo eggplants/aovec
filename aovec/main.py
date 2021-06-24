@@ -21,7 +21,8 @@ def command_mkvec(args: NS) -> None:
     AozoraVecMaker(args.parsedir).make_model(
         save_modelname=args.model, epochs=args.epochs,
         vector_size=args.vector_size, min_count=args.min_count,
-        window=args.window, workers=args.workers, binary=args.binary)
+        window=args.window, workers=args.workers,
+        binary=args.binary, both=args.both)
 
 
 def check_positive(v: str) -> int:
@@ -83,7 +84,10 @@ def make_argparser() -> argparse.ArgumentParser:
         metavar='INT', help='worker threads')
     parser_mkvec.add_argument(
         '-b', '--binary', action='store_true',
-        help='save keyvector file as one binary')
+        help='save model files as one binary')
+    parser_mkvec.add_argument(
+        '--both', action='store_true',
+        help='save model files as both row data and binary')
 
     parser_mkvec.set_defaults(handler=command_mkvec)
 
