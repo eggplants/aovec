@@ -42,8 +42,8 @@ model = Word2Vec.load('aozora_model.model')
 # *.kv
 model = KeyedVectors.load_word2vec_format('aozora_model.kv')
 
-# or...
-# +.kv.bin
+# or...(fastest way to load)
+# *.kv.bin
 model = KeyedVectors.load_word2vec_format('aozora_model.kv.bin',
                                           binary=True,
                                           unicode_errors='ignore')
