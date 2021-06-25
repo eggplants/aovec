@@ -63,7 +63,7 @@ $ sudo mv /usr/lib/*/mecab/dic/mecab-ipadic-neologd /var/lib/mecab/dic
 - Update `/etc/mecabrc`
 
 ```bash
-$ sudo cp /etc/mecabrc /stc/mecabrc.bak
+$ sudo cp /etc/mecabrc /src/mecabrc.bak
 $ sudo sed -i 's_^dicdir.*_; &\'$'\ndicdir = /var/lib/mecab/dic/mecab-ipadic-neologd_' /etc/mecabrc
 ```
 
