@@ -35,12 +35,15 @@ $ aovec mkvec
 ```python
 from gensim.models import Word2Vec, KeyedVectors
 
+# *.model+*.model.syn1neg.npy+*.model.wv.vectors.npy
 model = Word2Vec.load('aozora_model.model')
 
 # or...
-model = KeyedVectors.load_word2vec_format('aozora_model.kv',
-                                          unicode_errors='ignore')
+# *.kv
+model = KeyedVectors.load_word2vec_format('aozora_model.kv')
+
 # or...
+# +.kv.bin
 model = KeyedVectors.load_word2vec_format('aozora_model.kv.bin',
                                           binary=True,
                                           unicode_errors='ignore')
