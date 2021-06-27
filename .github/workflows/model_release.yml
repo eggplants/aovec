@@ -1,8 +1,8 @@
-name: Model scheduled release
+name: Model release
 
 on:
-  schedule:
-    - cron: "0 15 * * 0"
+  #schedule:
+  #  - cron: "0 15 * * 0"
   workflow_dispatch:
 jobs:
   build:
