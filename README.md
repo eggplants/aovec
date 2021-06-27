@@ -1,6 +1,6 @@
 # aovec
 
-[![Model scheduled release](https://github.com/eggplants/aovec/actions/workflows/model_release.yml/badge.svg)](https://github.com/eggplants/aovec/actions/workflows/model_release.yml)
+[![Model release](https://github.com/eggplants/aovec/actions/workflows/model_release.yml/badge.svg)](https://github.com/eggplants/aovec/actions/workflows/model_release.yml)
 [![Release Package](https://github.com/eggplants/aovec/actions/workflows/release.yml/badge.svg)](https://github.com/eggplants/aovec/actions/workflows/release.yml) [![PyPI version](https://badge.fury.io/py/aovec.svg)](https://badge.fury.io/py/aovec)
 
 - Make Word2Vec from [aozorabunko/aozorabunko](https://github.com/aozorabunko/aozorabunko)
