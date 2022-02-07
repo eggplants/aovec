@@ -19,15 +19,18 @@
 
 - Make `*.model` file
 
-```bash
+```shellsession
 # Install from pypi
-$ pip install aovec
+pip install aovec
+
 # Clone aozorabunko/aozorabunko (>20GB)
-$ aovec clone
+aovec clone
+
 # Parse html files and write to results to novels/
-$ aovec parse
+aovec parse
+
 # Make word2vec and write to aozora_model.model
-$ aovec mkvec
+aovec mkvec
 ```
 
 - Use from Python (See: [official document](https://radimrehurek.com/gensim/models/word2vec.html))
@@ -49,22 +52,24 @@ model = KeyedVectors.load_word2vec_format('aozora_model.kv.bin',
                                           unicode_errors='ignore')
 ```
 
-## (Optional)Set up `mecab-ipadic-neologd` on Ubuntu
+---
 
-- Download and install
+## (Optional) Set up `mecab-ipadic-neologd` on Ubuntu
 
-```bash
-$ sudo apt install build-essential
-$ git clone --depth 1 https://github.com/neologd/mecab-ipadic-neologd neologd && cd $_
-$ sudo bin/install-mecab-ipadic-neologd -y
-$ sudo mv /usr/lib/*/mecab/dic/mecab-ipadic-neologd /var/lib/mecab/dic
+1. Download and install
+
+```shellsession
+sudo apt install build-essential
+git clone --depth 1 https://github.com/neologd/mecab-ipadic-neologd neologd && cd $_
+sudo bin/install-mecab-ipadic-neologd -y
+sudo mv /usr/lib/*/mecab/dic/mecab-ipadic-neologd /var/lib/mecab/dic
 ```
 
-- Update `/etc/mecabrc`
+2. Update `/etc/mecabrc`
 
 ```bash
-$ sudo cp /etc/mecabrc /etc/mecabrc.bak
-$ sudo sed -i 's_^dicdir.*_; &\'$'\ndicdir = /var/lib/mecab/dic/mecab-ipadic-neologd_' /etc/mecabrc
+sudo cp /etc/mecabrc /etc/mecabrc.bak
+sudo sed -i 's_^dicdir.*_; &\'$'\ndicdir = /var/lib/mecab/dic/mecab-ipadic-neologd_' /etc/mecabrc
 ```
 
 ```diff
@@ -83,7 +88,8 @@ $ sudo sed -i 's_^dicdir.*_; &\'$'\ndicdir = /var/lib/mecab/dic/mecab-ipadic-neo
 
 ## Help
 
-```bash
+```shellsession
+$ aovec -h
 usage: aovec [-h] [-V] {clone,c,parse,p,mkvec,m} ...
 
 Make Word2Vec from aozorabunko/aozorabunko
@@ -99,7 +105,7 @@ optional arguments:
   -V, --version         show program's version number and exit
 ```
 
-```bash
+```shellsession
 $ aovec clone -h
 usage: aovec clone [-h]
 
@@ -107,7 +113,7 @@ optional arguments:
   -h, --help  show this help message and exit
 ```
 
-```bash
+```shellsession
 $ aovec parse -h
 usage: aovec parse [-h] [-d DIR]
 
@@ -117,7 +123,7 @@ optional arguments:
                         directory name of saving results (default: novels)
 ```
 
-```bash
+```shellsession
 $ aovec mkvec -h
 usage: aovec mkvec [-h] [-d DIR] [-o NAME] [-e INT] [-v INT] [-m INT] [-w INT]
                    [-p INT] [-b] [--both]
