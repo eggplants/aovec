@@ -9,8 +9,8 @@ class GitIsNotInstalled(Exception):
     pass
 
 
-class AozoraCloner():
-    url = 'https://github.com/aozorabunko/aozorabunko'
+class AozoraCloner:
+    url = "https://github.com/aozorabunko/aozorabunko"
 
     def __init__(self) -> None:
         pass
@@ -25,19 +25,19 @@ class AozoraCloner():
 
     @classmethod
     def clone(cls) -> Optional[int]:
-        if not which('git'):
+        if not which("git"):
             raise GitIsNotInstalled
         else:
-            p = subprocess.Popen('git clone --depth 1 ' + cls.url, shell=True)
+            p = subprocess.Popen("git clone --depth 1 " + cls.url, shell=True)
             p.wait()
             return p.poll()
 
 
-if __name__ == '__main__':
-    REPO = os.path.join(os.getcwd(), 'aozorabunko')
+if __name__ == "__main__":
+    REPO = os.path.join(os.getcwd(), "aozorabunko")
 
-    if os.path.isdir(REPO) and os.path.isdir(os.path.join(REPO, '.git')):
-        print('aozorabunko already exists!', file=sys.stderr)
+    if os.path.isdir(REPO) and os.path.isdir(os.path.join(REPO, ".git")):
+        print("aozorabunko already exists!", file=sys.stderr)
         exit(0)
     else:
         AozoraCloner().clone()
