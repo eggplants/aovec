@@ -10,10 +10,12 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v2
-      - name: Set up Python 3.8
+      - name: Set up Python 3.10
         uses: actions/setup-python@v1
         with:
-          python-version: 3.8
+          python-version: "3.10"
+          cache: pip
+          cache-dependency-path: setup.cfg
       - name: Install dependencies with apt
         run: |
           sudo apt install swig mecab libmecab-dev mecab-ipadic-utf8 build-essential -y
@@ -42,10 +44,15 @@ jobs:
       - name: Make vecmodel
         run: |
           aovec mkvec -o aozora_week${{ env.DATE }} --both
+      - uses: vimtor/action-zip@v1
+        with:
+          files: aozora_week${{ env.DATE }}.kv
+          recursive: false
+          dest: aozora_week${{ env.DATE }}.kv.zip
       - name: Create release
         uses: ncipollo/release-action@v1
         with:
-          artifacts: "aozora_week*"
+          artifacts: aozora_week${{ env.DATE }}.kv.zip
           token: ${{ secrets.GITHUB_TOKEN }}
           tag: week${{ env.DATE }}
           artifactErrorsFailBuild: true
