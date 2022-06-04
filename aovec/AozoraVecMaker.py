@@ -1,7 +1,9 @@
+from __future__ import annotations
+
 import glob
 import os
 import sys
-from typing import Any, List, Optional
+from typing import Any
 
 import MeCab  # type: ignore[import]
 from gensim.models import Word2Vec  # type: ignore[import]
@@ -77,7 +79,7 @@ class AozoraVecMaker:
         binary: bool = False,
         both: bool = False,
     ) -> None:
-        def t(line: str) -> List[Any]:
+        def t(line: str) -> list[Any]:
             return self.tokenizer(line, part_use=None)
 
         all_novel_lines = []
@@ -121,8 +123,8 @@ class AozoraVecMaker:
             model.wv.save_word2vec_format(kv_name)
 
     def tokenizer(
-        self, words: str, part_use: Optional[List[str]] = ["名詞", "形容詞"]
-    ) -> List[Any]:
+        self, words: str, part_use: list[str] | None = ["名詞", "形容詞"]
+    ) -> list[Any]:
         self.__tagger.parse("")
         nodes: MeCab.Tagger = self.__tagger.parseToNode(words)
         tokenized = []
@@ -141,7 +143,7 @@ class AozoraVecMaker:
         return tokenized
 
     @classmethod
-    def __is_word(cls, word: str, part: str, part_use: Optional[List[str]]) -> bool:
+    def __is_word(cls, word: str, part: str, part_use: list[str] | None) -> bool:
         is_stop = word not in cls.STOPWORDS
         is_part = part is None or part_use is None
         return is_stop and (

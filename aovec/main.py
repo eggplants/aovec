@@ -1,6 +1,7 @@
+from __future__ import annotations
+
 import argparse
 from argparse import Namespace as NS
-from typing import List, Optional
 
 from aovec import __version__
 
@@ -148,7 +149,7 @@ def make_argparser() -> argparse.ArgumentParser:
     return parser
 
 
-def parse(test: Optional[List[str]] = None) -> None:
+def parse(test: list[str] | None = None) -> None:
     parser = make_argparser()
     args = parser.parse_args(test)
 

@@ -1,8 +1,9 @@
+from __future__ import annotations
+
 import codecs
 import glob
 import os
 import sys
-from typing import List, Optional, Tuple
 
 import bs4
 
@@ -40,7 +41,7 @@ class AozoraParser:
                     self.__save_text(sf, res[2])
 
     @classmethod
-    def __parse_novel(cls, novel: str) -> Optional[Tuple[str, str, str]]:
+    def __parse_novel(cls, novel: str) -> tuple[str, str, str] | None:
         # print(novel)
         f = codecs.open(novel, "r", "shiftjis", "ignore")
         source = bs4.BeautifulSoup(f.read(), "html.parser")
@@ -93,11 +94,11 @@ class AozoraParser:
         return os.path.exists(path)
 
     @classmethod
-    def get_cards(cls) -> List[str]:
+    def get_cards(cls) -> list[str]:
         return [c for c in os.listdir(cls.AOZORA_CARDS) if c.isdecimal()]
 
     @classmethod
-    def get_novels(cls, card: str) -> List[str]:
+    def get_novels(cls, card: str) -> list[str]:
         f = cls.AOZORA_FILES.format(card)
         return glob.glob(os.path.join(f, "*.html"))
 

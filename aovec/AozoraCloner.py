@@ -1,8 +1,9 @@
+from __future__ import annotations
+
 import os
 import subprocess
 import sys
 from shutil import which
-from typing import Optional
 
 
 class GitIsNotInstalled(Exception):
@@ -24,7 +25,7 @@ class AozoraCloner:
         cls.url = url
 
     @classmethod
-    def clone(cls) -> Optional[int]:
+    def clone(cls) -> int | None:
         if not which("git"):
             raise GitIsNotInstalled
         else:

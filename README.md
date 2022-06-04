@@ -56,7 +56,7 @@ model = KeyedVectors.load_word2vec_format('aozora_model.kv.bin',
 
 ## (Optional) Set up `mecab-ipadic-neologd` on Ubuntu
 
-1. Download and install
+Download and install
 
 ```shellsession
 sudo apt install build-essential
@@ -65,7 +65,7 @@ sudo bin/install-mecab-ipadic-neologd -y
 sudo mv /usr/lib/*/mecab/dic/mecab-ipadic-neologd /var/lib/mecab/dic
 ```
 
-2. Update `/etc/mecabrc`
+Update `/etc/mecabrc`
 
 ```bash
 sudo cp /etc/mecabrc /etc/mecabrc.bak
