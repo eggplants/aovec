@@ -3,6 +3,8 @@
 [![Model release](https://github.com/eggplants/aovec/actions/workflows/model_release.yml/badge.svg)](https://github.com/eggplants/aovec/actions/workflows/model_release.yml)
 [![Release Package](https://github.com/eggplants/aovec/actions/workflows/release.yml/badge.svg)](https://github.com/eggplants/aovec/actions/workflows/release.yml) [![PyPI version](https://badge.fury.io/py/aovec.svg)](https://badge.fury.io/py/aovec)
 
+[![pre-commit.ci status](https://results.pre-commit.ci/badge/github/eggplants/aovec/master.svg)](https://results.pre-commit.ci/latest/github/eggplants/aovec/master)
+
 - Make Word2Vec from [aozorabunko/aozorabunko](https://github.com/aozorabunko/aozorabunko)
 
 - Pre-built models are available from `week*` [Releases](https://github.com/eggplants/aovec/releases).
