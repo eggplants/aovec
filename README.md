@@ -19,7 +19,7 @@
 
 ## How to use
 
-- Make `*.model` file
+### Make `*.model` file
 
 ```shellsession
 # Install from pypi
@@ -35,20 +35,29 @@ aovec parse
 aovec mkvec
 ```
 
-- Use from Python (See: [official document](https://radimrehurek.com/gensim/models/word2vec.html))
+### Use built model from Python (See: [official document](https://radimrehurek.com/gensim/models/word2vec.html))
+
+- `*.model`
 
 ```python
-from gensim.models import Word2Vec, KeyedVectors
+from gensim.models import Word2Vec
 
-# *.model+*.model.syn1neg.npy+*.model.wv.vectors.npy
 model = Word2Vec.load('aozora_model.model')
+```
 
-# or...
-# *.kv
+- `*.kv`
+
+```python
+from gensim.models import KeyedVectors
+
 model = KeyedVectors.load_word2vec_format('aozora_model.kv')
+```
 
-# or...(fastest way to load)
-# *.kv.bin
+- `*.kv.bin` (fastest)
+
+```python
+from gensim.models import KeyedVectors
+
 model = KeyedVectors.load_word2vec_format('aozora_model.kv.bin',
                                           binary=True,
                                           unicode_errors='ignore')
