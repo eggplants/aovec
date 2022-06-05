@@ -44,11 +44,7 @@ jobs:
       - name: Make vecmodel
         run: |
           aovec mkvec -o aozora_week${{ env.DATE }} --both
-      - uses: vimtor/action-zip@v1
-        with:
-          files: aozora_week${{ env.DATE }}.kv
-          recursive: false
-          dest: aozora_week${{ env.DATE }}.kv.zip
+          zip -9 aozora_week${{ env.DATE }}.kv.zip aozora_week${{ env.DATE }}.kv
       - name: Create release
         uses: ncipollo/release-action@v1
         with:
