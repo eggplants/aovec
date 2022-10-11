@@ -87,7 +87,7 @@ class AozoraVecMaker:
         ps_len = len(ps)
         for idx, p in enumerate(ps):
             print("{}/{}".format(idx + 1, ps_len), end="\r", file=sys.stderr)
-            f = open(p, "r")
+            f = open(p)
             novel_content = f.read()
             novel_text_lines = novel_content.split("\n")
 
